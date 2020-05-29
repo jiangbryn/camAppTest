@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
         <View>
-          <Video />
+          <Video roomId={111} isFront={false}/>
         </View>
     );
   }

@@ -1,7 +1,13 @@
 import React from 'react';
 import io from 'socket.io-client';
 import {Text, View} from 'react-native';
-import {mediaDevices, RTCView, RTCPeerConnection, RTCSessionDescription} from 'react-native-webrtc';
+import {
+  RTCPeerConnection,
+  RTCIceCandidate,
+  RTCSessionDescription,
+  RTCView,
+  mediaDevices,
+} from 'react-native-webrtc';
 
 const pc_config = {
   iceServers: [
@@ -21,202 +27,142 @@ class Video extends React.Component {
       initiator: false,
       full: false,
       connecting: false,
-      waiting: true,
-    };
+      waiting: true
+    }
+    this.localStream = null;
+
+    this.isFront = true;
     this.socket = null;
     this.pc = null;
     this.candidates = {};
-    this.localStream = {};
-    this.remoteStream = {};
-    this.localStreamUrl = '';
-    this.remoteStreamUrl = '';
   }
 
   componentDidMount() {
-    const socket = io('https://jiangby.xyz');
-    this.socket = socket;
-    const roomId = 111;
+    this.socket = io('http://192.168.1.72:3000');
+    const roomId = this.props.roomId;
+    this.isFront = this.props.isFront;
     this.pc = new RTCPeerConnection(pc_config);
 
+    this.socket.on('init', () => {
+      this.setState({ initiator: true });
+    })
+
+    this.socket.on('ready', () => {
+      this.enterRoom(roomId);
+    })
+
+    this.socket.on('full', () => {
+      this.setState({ full: true });
+    });
+
+    this.socket.on('offerOrAnswer', (sdp) => {
+      // set sdp as remote description
+      if (sdp.type === 'offer' && this.state.initiator) return
+      if (sdp.type === 'answer' && !this.state.initiator) return;
+      this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
+      this.createAnswer()
+    })
+
+    this.socket.on('candidate', (candidate) => {
+      // console.log('From Peer... ', JSON.stringify(candidate))
+      this.pc.addIceCandidate(new RTCIceCandidate(candidate))
+    })
+
+    // triggered when a new candidate is returned
     this.pc.onicecandidate = (e) => {
       // send the candidates to the remote peer
       // see addCandidate below to be triggered on the remote peer
       if (e.candidate) {
-        this.socket.emit('candidate', {
-          candidate: {
-            candidate: e.candidate.candidate,
-            sdpMLineIndex: e.candidate.sdpMLineIndex,
-            sdpMid: e.candidate.sdpMid
-          }
-        })
+        // console.log(JSON.stringify(e.candidate))
+        this.sendToPeer('candidate', e.candidate)
       }
     }
 
-    this.pc.onaddstream = (e) => {
-      debugger
-      this.setState({
-        connecting: false,
-        waiting: false,
-        remoteStreamUrl: e.stream.toURL(),
-      });
-      this.remoteStream = e.stream;
+    // triggered when there is a change in connection state
+    this.pc.oniceconnectionstatechange = (e) => {
+      console.log(e)
     }
 
-    this.getUserMedia().then(() => {
-      socket.emit('join', {roomId: roomId});
-    });
-    socket.on('init', () => {
-      this.setState({initiator: true});
-      console.log('init complete');
-    });
-    socket.on('ready', () => {
-      console.log('enter room: ' + roomId);
-      this.enter(roomId);
-      console.log('is ready');
-    });
-    this.socket.on('candidate', (candidate) => {
-      this.pc.addIceCandidate(new RTCIceCandidate(candidate))
-    });
-    socket.on('desc', (data) => {
-      if (data.type === 'offer' && this.state.initiator) {
-        return;
+    // called when getUserMedia() successfully returns - see below
+    const success = (stream) => {
+      this.socket.emit('join', { roomId: roomId })
+      console.log(stream.toURL())
+      this.localStream = stream
+      this.pc.addStream(stream)
+    }
+
+    // called when getUserMedia() fails - see below
+    const failure = (e) => {
+      console.log('getUserMedia Error: ', e)
+    }
+
+    mediaDevices.enumerateDevices().then(sourceInfos => {
+      console.log(sourceInfos);
+      let videoSourceId;
+      for (let i = 0; i < sourceInfos.length; i++) {
+        const sourceInfo = sourceInfos[i];
+        if (sourceInfo.kind === "videoinput" && sourceInfo.facing === (this.isFront ? "front" : "environment")) {
+          videoSourceId = sourceInfo.deviceId;
+        }
       }
-      if (data.type === 'answer' && !this.state.initiator) {
-        return;
+
+      const constraints = {
+        // audio: true,
+        video: {
+          width: { min: 160, ideal: 640, max: 1280 },
+          height: { min: 120, ideal: 360, max: 720 },
+          facingMode: (this.isFront ? "user" : "environment"),
+          optional: (videoSourceId ? [{ sourceId: videoSourceId }] : [])
+        }
       }
-      this.call(data);
-    });
-    socket.on('disconnected', () => {
-      this.setState({initiator: true});
-    });
-    socket.on('full', () => {
-      this.setState({full: true});
+
+      mediaDevices.getUserMedia(constraints)
+          .then(success)
+          .catch(failure);
     });
   }
 
-  getUserMedia() {
-    return new Promise((resolve, reject) => {
-      mediaDevices
-        .getUserMedia({
-          audio: true,
-          video: {
-            width: {min: 160, ideal: 640, max: 1280},
-            height: {min: 120, ideal: 360, max: 720},
-          },
-        })
-        .then((stream) => {
-          this.localStream = stream;
-          this.localStreamUrl = stream.toURL();
-          this.pc.addStream(stream);
-          resolve();
-        })
-        .catch(() => console.error('the getUserMedia is not supported!'));
-    });
-  }
-
-  enter(roomId) {
-    this.setState({connecting: true});
-    if (this.state.initiator) {
-      this.createOffer(roomId);
-    } else {
-      this.createAnswer(roomId);
-    }
-
-  }
-
-  call(data) {
-    if (data.candidate) {
-      console.log("in data.candidate");
-      if (this.pc.remoteDescription && this.pc.remoteDescription.type) {
-        this.addIceCandidate(data.candidate)
-      } else {
-        this.candidates.push(data.candidate)
-      }
-    }
-    console.log("in call, candidate: " + data.candidate);
-    if (data.sdp) {
-      const otherDesc = JSON.stringify(data);
-      this.setRemoteDescription(otherDesc);
-      this.pc.setRemoteDescription(new RTCSessionDescription(data))
-          .then(() => {
-            if (this.destroyed) return
-
-            this.addCandidate();
-            this.candidates = []
-            if (this.pc.remoteDescription.type === 'offer') this.createAnswer()
-          })
-          .catch(err => {
-            console.log(err);
-          })
+  enterRoom() {
+    this.setState({ connecting: true })
+    if(this.state.initiator === true) {
+      this.createOffer()
     }
   }
 
-  renderFull() {
-    if (this.state.full) {
-      return <Text>The room is full</Text>;
-    }
+  sendToPeer(messageType, data) {
+    this.socket.emit(messageType, data)
   }
 
-  sendSignal = (roomId, data) => {
-    const signal = {
-      room: roomId,
-      desc: data,
-    };
-    this.socket.emit('signal', signal);
-  }
-
-  createOffer = (roomId) => {
+  createOffer() {
     console.log('Offer')
+
     // initiates the creation of SDP
     this.pc.createOffer({ offerToReceiveVideo: 1 })
         .then(sdp => {
-          // console.log(JSON.stringify(sdp));
-
+          // console.log(JSON.stringify(sdp))
           // set offer sdp as local description
-          this.pc.setLocalDescription(sdp);
-          this.sendSignal(roomId, sdp);
+          this.pc.setLocalDescription(sdp)
+          this.sendToPeer('offerOrAnswer', sdp)
         })
   }
 
-  createAnswer = (roomId) => {
+  // https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createAnswer
+  // creates an SDP answer to an offer received from remote peer
+  createAnswer() {
     console.log('Answer')
     this.pc.createAnswer({ offerToReceiveVideo: 1 })
         .then(sdp => {
           // console.log(JSON.stringify(sdp))
-
           // set answer sdp as local description
           this.pc.setLocalDescription(sdp)
-
-          this.sendSignal(roomId, sdp)
+          this.sendToPeer('offerOrAnswer', sdp)
         })
-  }
-
-  setRemoteDescription = (data) => {
-    // retrieve and parse the SDP copied from the remote peer
-    const desc = JSON.parse(data)
-
-    // set sdp as remote description
-    this.pc.setRemoteDescription(new RTCSessionDescription(desc))
-  }
-
-  addCandidate = () => {
-    // retrieve and parse the Candidate copied from the remote peer
-    // const candidate = JSON.parse(this.textref.value)
-    // console.log('Adding candidate:', candidate)
-
-    this.candidates.forEach(candidate => {
-      console.log(JSON.stringify(candidate))
-      this.pc.addIceCandidate(new RTCIceCandidate(candidate))
-    });
   }
 
   render() {
     return (
       <View className="video-wrapper">
-        {console.log('in render local: ' + this.localStreamUrl)}
-        {console.log('in render remote: ' + this.remoteStreamUrl)}
-        <RTCView streamURL={this.localStreamUrl} />
-        <RTCView streamURL={this.remoteStreamUrl} />
+        <RTCView streamURL={this.localStream && this.localStream.toURL()} />
         {this.state.connecting && (
           <View>
             <Text>Establishing connection...</Text>
@@ -227,7 +173,6 @@ class Video extends React.Component {
             <Text>Waiting for remote device...</Text>
           </View>
         )}
-        {this.renderFull()}
       </View>
     );
   }
