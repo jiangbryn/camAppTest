@@ -32,13 +32,12 @@ class Video extends React.Component {
     this.localStream = null;
 
     this.isFront = true;
-    this.socket = null;
+    this.socket = this.props.socket;
     this.pc = null;
     this.candidates = {};
   }
 
   componentDidMount() {
-    this.socket = io('http://192.168.1.72:3000');
     const roomId = this.props.roomId;
     this.isFront = this.props.isFront;
     this.pc = new RTCPeerConnection(pc_config);
