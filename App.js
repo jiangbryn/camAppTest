@@ -16,6 +16,10 @@ class App extends Component {
     this.socket.on('receiveSetting', (data) => {
       console.log(data);
     })
+
+    this.socket.on('takePhoto', () => {
+      console.log('Take a Photo');
+    })
   }
 
   render() {
