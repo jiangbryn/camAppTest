@@ -19,7 +19,8 @@ class App extends Component {
   }
 
   render() {
-    this.socket = io('http://192.168.1.72:3000');
+    // To use ios app, it should connect to the ip addr of computer
+    this.socket = io('http://172.18.143.250:3000');
     return (
       <View>
         <Video roomId={111} isFront={false} socket={this.socket}/>

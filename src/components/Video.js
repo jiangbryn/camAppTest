@@ -25,9 +25,9 @@ class Video extends React.Component {
     super(props);
     this.state = {
       initiator: false,
-      full: false,
       connecting: false,
-      waiting: true
+      waiting: true,
+      connected: false,
     }
     this.localStream = null;
 
@@ -38,21 +38,21 @@ class Video extends React.Component {
   }
 
   componentDidMount() {
-    const roomId = this.props.roomId;
-    this.isFront = this.props.isFront;
-    this.pc = new RTCPeerConnection(pc_config);
-
     this.socket.on('init', () => {
       this.setState({ initiator: true });
     })
 
-    this.socket.on('ready', () => {
-      this.enterRoom(roomId);
-    })
-
-    this.socket.on('full', () => {
-      this.setState({ full: true });
+    this.socket.on('close', () => {
+      this.releaseStream();
     });
+
+    this.socket.on('reconnect', () => {
+      this.setupPC();
+    });
+
+    if (this.pc === null) {
+      this.setupPC();
+    }
 
     this.socket.on('offerOrAnswer', (sdp) => {
       // set sdp as remote description
@@ -66,6 +66,20 @@ class Video extends React.Component {
       // console.log('From Peer... ', JSON.stringify(candidate))
       this.pc.addIceCandidate(new RTCIceCandidate(candidate))
     })
+  }
+
+  setupPC() {
+    const roomId = this.props.roomId;
+    this.isFront = this.props.isFront;
+    this.pc = new RTCPeerConnection(pc_config);
+
+    // triggered when there is a change in connection state
+    this.pc.oniceconnectionstatechange = (e) => {
+      console.log(e)
+      if (this.pc.connectionState === 'disconnected') {
+        this.releaseStream();
+      }
+    }
 
     // triggered when a new candidate is returned
     this.pc.onicecandidate = (e) => {
@@ -77,55 +91,57 @@ class Video extends React.Component {
       }
     }
 
-    // triggered when there is a change in connection state
-    this.pc.oniceconnectionstatechange = (e) => {
-      console.log(e)
-    }
-
-    // called when getUserMedia() successfully returns - see below
+    // called when getUserMedia() successfully returns
     const success = (stream) => {
+      console.log('local stream: ' + stream.toURL())
       this.socket.emit('join', { roomId: roomId })
-      console.log(stream.toURL())
       this.localStream = stream
       this.pc.addStream(stream)
     }
 
-    // called when getUserMedia() fails - see below
+    // called when getUserMedia() fails
     const failure = (e) => {
       console.log('getUserMedia Error: ', e)
     }
 
     mediaDevices.enumerateDevices().then(sourceInfos => {
-      console.log(sourceInfos);
       let videoSourceId;
       for (let i = 0; i < sourceInfos.length; i++) {
         const sourceInfo = sourceInfos[i];
         if (sourceInfo.kind === "videoinput" && sourceInfo.facing === (this.isFront ? "front" : "environment")) {
           videoSourceId = sourceInfo.deviceId;
+          console.log('source info: ' + JSON.stringify(sourceInfo))
         }
       }
 
       const constraints = {
-        // audio: true,
         video: {
           width: { min: 160, ideal: 640, max: 1280 },
           height: { min: 120, ideal: 360, max: 720 },
           facingMode: (this.isFront ? "user" : "environment"),
           optional: (videoSourceId ? [{ sourceId: videoSourceId }] : [])
         }
-      }
-
+      };
       mediaDevices.getUserMedia(constraints)
-          .then(success)
-          .catch(failure);
+        .then(success)
+        .catch(failure);
     });
+
+    this.socket.on('ready', () => {
+      this.setState({ connecting: true, waiting: false })
+      console.log('Ready');
+      if(this.state.initiator === true) {
+        console.log('Create offer');
+        this.createOffer()
+      }
+      this.setState({ connecting: false })
+    })
   }
 
-  enterRoom() {
-    this.setState({ connecting: true })
-    if(this.state.initiator === true) {
-      this.createOffer()
-    }
+  releaseStream() {
+    this.localStream.getTracks().forEach(track => track.stop());
+    this.localStream = null;
+    this.setState({ waiting: true });
   }
 
   sendToPeer(messageType, data) {
@@ -145,7 +161,6 @@ class Video extends React.Component {
         })
   }
 
-  // https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createAnswer
   // creates an SDP answer to an offer received from remote peer
   createAnswer() {
     console.log('Answer')
@@ -162,16 +177,6 @@ class Video extends React.Component {
     return (
       <View className="video-wrapper">
         <RTCView streamURL={this.localStream && this.localStream.toURL()} />
-        {this.state.connecting && (
-          <View>
-            <Text>Establishing connection...</Text>
-          </View>
-        )}
-        {this.state.waiting && (
-          <View>
-            <Text>Waiting for remote device...</Text>
-          </View>
-        )}
       </View>
     );
   }
