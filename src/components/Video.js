@@ -159,6 +159,9 @@ class Video extends React.Component {
           this.pc.setLocalDescription(sdp)
           this.sendToPeer('offerOrAnswer', sdp)
         })
+        .catch((e) => {
+            console.log(e)
+        })
   }
 
   // creates an SDP answer to an offer received from remote peer
@@ -170,6 +173,9 @@ class Video extends React.Component {
           // set answer sdp as local description
           this.pc.setLocalDescription(sdp)
           this.sendToPeer('offerOrAnswer', sdp)
+        })
+        .catch((e) => {
+          console.log(e)
         })
   }
 
