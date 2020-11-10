@@ -162,23 +162,34 @@ class Video extends React.Component {
     console.log('Offer');
 
     // initiates the creation of SDP
-    this.pc.createOffer({offerToReceiveVideo: 1}).then((sdp) => {
-      // console.log(JSON.stringify(sdp))
-      // set offer sdp as local description
-      this.pc.setLocalDescription(sdp);
-      this.sendToPeer('offerOrAnswer', sdp);
-    });
+
+    this.pc
+      .createOffer({offerToReceiveVideo: 1})
+      .then((sdp) => {
+        // console.log(JSON.stringify(sdp))
+        // set offer sdp as local description
+        this.pc.setLocalDescription(sdp);
+        this.sendToPeer('offerOrAnswer', sdp);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   // creates an SDP answer to an offer received from remote peer
   createAnswer() {
     console.log('Answer');
-    this.pc.createAnswer({offerToReceiveVideo: 1}).then((sdp) => {
-      // console.log(JSON.stringify(sdp))
-      // set answer sdp as local description
-      this.pc.setLocalDescription(sdp);
-      this.sendToPeer('offerOrAnswer', sdp);
-    });
+    this.pc
+      .createAnswer({offerToReceiveVideo: 1})
+      .then((sdp) => {
+        // console.log(JSON.stringify(sdp))
+        // set answer sdp as local description
+        this.pc.setLocalDescription(sdp);
+        this.sendToPeer('offerOrAnswer', sdp);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   clickSnap() {
