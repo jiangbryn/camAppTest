@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {
   RTCPeerConnection,
   RTCIceCandidate,
@@ -141,7 +141,7 @@ class Video extends React.Component {
   releaseStream() {
     this.localStream.getTracks().forEach(track => track.stop());
     this.localStream = null;
-    this.setState({ waiting: true });
+    this.setState({ waiting: true, initiator: false });
   }
 
   sendToPeer(messageType, data) {
