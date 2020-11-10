@@ -12,15 +12,15 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		25638A4CE73AE23041E278B6 /* libPods-camAppTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A237497CB0543998293B /* libPods-camAppTest.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* camAppTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* camAppTestTests.m */; };
-		7212F86BEDD37751AA8CCDE7 /* libPods-camAppTest-camAppTestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A62058C8BF77DAC2105442E3 /* libPods-camAppTest-camAppTestTests.a */; };
-		81D1BCACD618E74AE7FD45C7 /* libPods-camAppTest-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 451D1C085CA24ACCB3ABBD2C /* libPods-camAppTest-tvOSTests.a */; };
+		3C3535EC4835DD253D02AB32 /* libPods-camAppTest-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D09F7D1D8E57DA197E6FEFC /* libPods-camAppTest-tvOSTests.a */; };
+		74976E2D5D513CEEE453BEAE /* libPods-camAppTest-camAppTestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62E1CF8F56FF1AA78571A6FF /* libPods-camAppTest-camAppTestTests.a */; };
+		BC58B66EC7DC58A878C11BC7 /* libPods-camAppTest-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F433A85000D9E3D6ADBC5446 /* libPods-camAppTest-tvOS.a */; };
 		D3CC2FE22464723400161CFE /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3CC2FE12464723400161CFE /* WebRTC.framework */; };
-		EF8596DE75552ED86026537A /* libPods-camAppTest-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B811D3F7EB9BB1776B514A /* libPods-camAppTest-tvOS.a */; };
+		F7EDA6475ACAC480A761BE9A /* libPods-camAppTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2959937C6453B2F4722F6195 /* libPods-camAppTest.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +52,7 @@
 		00E356EE1AD99517003FC87E /* camAppTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = camAppTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* camAppTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = camAppTestTests.m; sourceTree = "<group>"; };
+		04346DF74F55265A94E0A37D /* Pods-camAppTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest/Pods-camAppTest.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* camAppTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = camAppTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = camAppTest/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = camAppTest/AppDelegate.m; sourceTree = "<group>"; };
@@ -59,24 +60,23 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = camAppTest/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = camAppTest/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = camAppTest/main.m; sourceTree = "<group>"; };
+		2190ACEBC7B518FF954EA302 /* Pods-camAppTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest.release.xcconfig"; path = "Target Support Files/Pods-camAppTest/Pods-camAppTest.release.xcconfig"; sourceTree = "<group>"; };
+		2959937C6453B2F4722F6195 /* libPods-camAppTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* camAppTest-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "camAppTest-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* camAppTest-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "camAppTest-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		451D1C085CA24ACCB3ABBD2C /* libPods-camAppTest-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F6703D36C294F597F388DF4 /* Pods-camAppTest-camAppTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-camAppTestTests.release.xcconfig"; path = "Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests.release.xcconfig"; sourceTree = "<group>"; };
-		6089A237497CB0543998293B /* libPods-camAppTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FB4A2135A327D6D99AE04B7 /* Pods-camAppTest-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOSTests/Pods-camAppTest-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A0DC5ABDA944068C3573ED41 /* Pods-camAppTest-camAppTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-camAppTestTests.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A62058C8BF77DAC2105442E3 /* libPods-camAppTest-camAppTestTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest-camAppTestTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C124D7F8F512E9111DE32A0C /* Pods-camAppTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest/Pods-camAppTest.debug.xcconfig"; sourceTree = "<group>"; };
-		C1FF31C729BD3A5B4358E719 /* Pods-camAppTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest.release.xcconfig"; path = "Target Support Files/Pods-camAppTest/Pods-camAppTest.release.xcconfig"; sourceTree = "<group>"; };
-		C3ECD606C37108FC7BDD8427 /* Pods-camAppTest-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOSTests/Pods-camAppTest-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		D294DC58A853903A30034071 /* Pods-camAppTest-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOS/Pods-camAppTest-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		2F4458083AD4C97BBDFA4118 /* Pods-camAppTest-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOSTests/Pods-camAppTest-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		62E1CF8F56FF1AA78571A6FF /* libPods-camAppTest-camAppTestTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest-camAppTestTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6997D0EAF261558C41F21D88 /* Pods-camAppTest-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOS/Pods-camAppTest-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		6D09F7D1D8E57DA197E6FEFC /* libPods-camAppTest-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7790BC01E3DBFFF890DA4138 /* Pods-camAppTest-camAppTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-camAppTestTests.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C3B3196E3327023C827C6559 /* Pods-camAppTest-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOS.release.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOS/Pods-camAppTest-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		C5C48FB2E62CB13F0018D3FE /* Pods-camAppTest-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOSTests/Pods-camAppTest-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3CC2FDB2464721800161CFE /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebRTC.xcodeproj; path = "../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; };
 		D3CC2FE12464723400161CFE /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = "../node_modules/react-native-webrtc/ios/WebRTC.framework"; sourceTree = "<group>"; };
-		DB8B686591675FFEFC93ABEA /* Pods-camAppTest-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-tvOS.release.xcconfig"; path = "Target Support Files/Pods-camAppTest-tvOS/Pods-camAppTest-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		E3B811D3F7EB9BB1776B514A /* libPods-camAppTest-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD887AA759A59539C0C91670 /* Pods-camAppTest-camAppTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camAppTest-camAppTestTests.release.xcconfig"; path = "Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F433A85000D9E3D6ADBC5446 /* libPods-camAppTest-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-camAppTest-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7212F86BEDD37751AA8CCDE7 /* libPods-camAppTest-camAppTestTests.a in Frameworks */,
+				74976E2D5D513CEEE453BEAE /* libPods-camAppTest-camAppTestTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,8 +92,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25638A4CE73AE23041E278B6 /* libPods-camAppTest.a in Frameworks */,
 				D3CC2FE22464723400161CFE /* WebRTC.framework in Frameworks */,
+				F7EDA6475ACAC480A761BE9A /* libPods-camAppTest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF8596DE75552ED86026537A /* libPods-camAppTest-tvOS.a in Frameworks */,
+				BC58B66EC7DC58A878C11BC7 /* libPods-camAppTest-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81D1BCACD618E74AE7FD45C7 /* libPods-camAppTest-tvOSTests.a in Frameworks */,
+				3C3535EC4835DD253D02AB32 /* libPods-camAppTest-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,14 +150,14 @@
 		1751C9F70FBD1B0190E1D0B7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C124D7F8F512E9111DE32A0C /* Pods-camAppTest.debug.xcconfig */,
-				C1FF31C729BD3A5B4358E719 /* Pods-camAppTest.release.xcconfig */,
-				A0DC5ABDA944068C3573ED41 /* Pods-camAppTest-camAppTestTests.debug.xcconfig */,
-				5F6703D36C294F597F388DF4 /* Pods-camAppTest-camAppTestTests.release.xcconfig */,
-				D294DC58A853903A30034071 /* Pods-camAppTest-tvOS.debug.xcconfig */,
-				DB8B686591675FFEFC93ABEA /* Pods-camAppTest-tvOS.release.xcconfig */,
-				8FB4A2135A327D6D99AE04B7 /* Pods-camAppTest-tvOSTests.debug.xcconfig */,
-				C3ECD606C37108FC7BDD8427 /* Pods-camAppTest-tvOSTests.release.xcconfig */,
+				04346DF74F55265A94E0A37D /* Pods-camAppTest.debug.xcconfig */,
+				2190ACEBC7B518FF954EA302 /* Pods-camAppTest.release.xcconfig */,
+				7790BC01E3DBFFF890DA4138 /* Pods-camAppTest-camAppTestTests.debug.xcconfig */,
+				DD887AA759A59539C0C91670 /* Pods-camAppTest-camAppTestTests.release.xcconfig */,
+				6997D0EAF261558C41F21D88 /* Pods-camAppTest-tvOS.debug.xcconfig */,
+				C3B3196E3327023C827C6559 /* Pods-camAppTest-tvOS.release.xcconfig */,
+				C5C48FB2E62CB13F0018D3FE /* Pods-camAppTest-tvOSTests.debug.xcconfig */,
+				2F4458083AD4C97BBDFA4118 /* Pods-camAppTest-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -167,10 +167,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				6089A237497CB0543998293B /* libPods-camAppTest.a */,
-				A62058C8BF77DAC2105442E3 /* libPods-camAppTest-camAppTestTests.a */,
-				E3B811D3F7EB9BB1776B514A /* libPods-camAppTest-tvOS.a */,
-				451D1C085CA24ACCB3ABBD2C /* libPods-camAppTest-tvOSTests.a */,
+				2959937C6453B2F4722F6195 /* libPods-camAppTest.a */,
+				62E1CF8F56FF1AA78571A6FF /* libPods-camAppTest-camAppTestTests.a */,
+				F433A85000D9E3D6ADBC5446 /* libPods-camAppTest-tvOS.a */,
+				6D09F7D1D8E57DA197E6FEFC /* libPods-camAppTest-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -225,11 +225,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "camAppTestTests" */;
 			buildPhases = (
-				5ED31C83AA7C014C7B0CE961 /* [CP] Check Pods Manifest.lock */,
+				EE8DC024F1175A28CFBACAFE /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				7D0E497674D2F24140059FC8 /* [CP] Embed Pods Frameworks */,
+				F1872539588CA644EC91C076 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,13 +245,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "camAppTest" */;
 			buildPhases = (
-				CB5B99BAAFDB35DB4A2E62B4 /* [CP] Check Pods Manifest.lock */,
+				2CD76F5026BE332CC1AD3330 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A59639656C3F07E5CCAD0581 /* [CP] Embed Pods Frameworks */,
+				C214F2FA49990B9BA7E5A97C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -266,7 +266,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "camAppTest-tvOS" */;
 			buildPhases = (
-				BE2C25D4E805D0505B2AD796 /* [CP] Check Pods Manifest.lock */,
+				4F7997C11FE7764C6E86B426 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -286,7 +286,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "camAppTest-tvOSTests" */;
 			buildPhases = (
-				3CC3C7FECF51AF03E9FA71B6 /* [CP] Check Pods Manifest.lock */,
+				878334266D246C0EC311EB50 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -311,11 +311,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = TMV4P7GPS9;
+						DevelopmentTeam = V2PR4T24S7;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = TMV4P7GPS9;
+						DevelopmentTeam = V2PR4T24S7;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -415,6 +415,28 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		2CD76F5026BE332CC1AD3330 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-camAppTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,87 +451,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		3CC3C7FECF51AF03E9FA71B6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-camAppTest-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5ED31C83AA7C014C7B0CE961 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-camAppTest-camAppTestTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D0E497674D2F24140059FC8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests-frameworks.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-webrtc/ios/WebRTC.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A59639656C3F07E5CCAD0581 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-camAppTest/Pods-camAppTest-frameworks.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-webrtc/ios/WebRTC.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-camAppTest/Pods-camAppTest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BE2C25D4E805D0505B2AD796 /* [CP] Check Pods Manifest.lock */ = {
+		4F7997C11FE7764C6E86B426 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -531,7 +473,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CB5B99BAAFDB35DB4A2E62B4 /* [CP] Check Pods Manifest.lock */ = {
+		878334266D246C0EC311EB50 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -546,11 +488,69 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-camAppTest-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-camAppTest-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C214F2FA49990B9BA7E5A97C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-camAppTest/Pods-camAppTest-frameworks.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-webrtc/ios/WebRTC.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-camAppTest/Pods-camAppTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE8DC024F1175A28CFBACAFE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-camAppTest-camAppTestTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1872539588CA644EC91C076 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests-frameworks.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-webrtc/ios/WebRTC.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-camAppTest-camAppTestTests/Pods-camAppTest-camAppTestTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -658,10 +658,10 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0DC5ABDA944068C3573ED41 /* Pods-camAppTest-camAppTestTests.debug.xcconfig */;
+			baseConfigurationReference = 7790BC01E3DBFFF890DA4138 /* Pods-camAppTest-camAppTestTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = TMV4P7GPS9;
+				DEVELOPMENT_TEAM = V2PR4T24S7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -682,11 +682,11 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F6703D36C294F597F388DF4 /* Pods-camAppTest-camAppTestTests.release.xcconfig */;
+			baseConfigurationReference = DD887AA759A59539C0C91670 /* Pods-camAppTest-camAppTestTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = TMV4P7GPS9;
+				DEVELOPMENT_TEAM = V2PR4T24S7;
 				INFOPLIST_FILE = camAppTestTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -703,12 +703,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C124D7F8F512E9111DE32A0C /* Pods-camAppTest.debug.xcconfig */;
+			baseConfigurationReference = 04346DF74F55265A94E0A37D /* Pods-camAppTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TMV4P7GPS9;
+				DEVELOPMENT_TEAM = V2PR4T24S7;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -721,7 +721,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.camAppTest1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.camAppTest1ness;
 				PRODUCT_NAME = camAppTest;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -731,12 +731,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1FF31C729BD3A5B4358E719 /* Pods-camAppTest.release.xcconfig */;
+			baseConfigurationReference = 2190ACEBC7B518FF954EA302 /* Pods-camAppTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TMV4P7GPS9;
+				DEVELOPMENT_TEAM = V2PR4T24S7;
 				INFOPLIST_FILE = camAppTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -744,7 +744,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.camAppTest1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.camAppTest1ness;
 				PRODUCT_NAME = camAppTest;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -753,7 +753,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D294DC58A853903A30034071 /* Pods-camAppTest-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 6997D0EAF261558C41F21D88 /* Pods-camAppTest-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -781,7 +781,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB8B686591675FFEFC93ABEA /* Pods-camAppTest-tvOS.release.xcconfig */;
+			baseConfigurationReference = C3B3196E3327023C827C6559 /* Pods-camAppTest-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -809,7 +809,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FB4A2135A327D6D99AE04B7 /* Pods-camAppTest-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = C5C48FB2E62CB13F0018D3FE /* Pods-camAppTest-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -836,7 +836,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3ECD606C37108FC7BDD8427 /* Pods-camAppTest-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 2F4458083AD4C97BBDFA4118 /* Pods-camAppTest-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
