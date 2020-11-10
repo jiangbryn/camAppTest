@@ -151,7 +151,7 @@ class Video extends React.Component {
   releaseStream() {
     this.localStream.getTracks().forEach((track) => track.stop());
     this.localStream = null;
-    this.setState({waiting: true});
+    this.setState({waiting: true, initiator: false});
   }
 
   sendToPeer(messageType, data) {
