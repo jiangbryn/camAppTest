@@ -13,11 +13,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.socket.on('receiveSetting', (data) => {
+    const roomId = 111;
+    this.socket.emit('join', {roomId: roomId});
+
+    this.socket.on('receive-setting', (data) => {
       console.log(data);
     })
 
-    this.socket.on('takePhoto', () => {
+    this.socket.on('take-photo', () => {
       console.log('Take a Photo');
     })
   }
@@ -27,7 +30,7 @@ class App extends Component {
     this.socket = io('http://172.18.143.250:3000');
     return (
       <View>
-        <Video roomId={111} isFront={false} socket={this.socket}/>
+        <Video isFront={false} socket={this.socket}/>
       </View>
     );
   }
