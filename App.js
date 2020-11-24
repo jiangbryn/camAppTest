@@ -21,7 +21,7 @@ class App extends Component {
     this.para = null;
     this.socket = null;
     this.state = {
-      cameraOccupy: 0, // 0 for preview, 1 for taking pictures.
+      cameraOccupy: 1, // 0 for preview, 1 for taking pictures.
     };
   }
 
