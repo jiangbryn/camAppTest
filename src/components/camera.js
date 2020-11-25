@@ -16,7 +16,7 @@ class MyCamera extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     console.log("rerendering camera.js");
     if (this.props.takePhoto === true) {
@@ -30,11 +30,12 @@ class MyCamera extends React.Component {
     this.takePicture.bind(this)();
   }
   takePicture = async () => {
-    if (this.camera && !this.props.takePhoto) {
+    // if (this.camera && !this.props.takePhoto) {
       const options = {quality: 0.5, base64: true};
       const data = await this.camera.takePictureAsync(options);
       console.log('taking a picture', this.props.cameratype);
-    }
+      console.log(this.props.cameratype, this.props.flash, this.props.exposure);
+    // }
   };
   render() {
     return (
@@ -46,6 +47,7 @@ class MyCamera extends React.Component {
           style={styles.preview}
           type={this.props.cameratype}
           flashMode={this.props.flash}
+          exposure={this.props.exposure}
         />
         <View>
           <Grid style={styles.bottomToolbar}>
@@ -68,7 +70,7 @@ class MyCamera extends React.Component {
       </View>
     );
   }
-  
+
 }
 
 const {width: winWidth, height: winHeight} = Dimensions.get('window');

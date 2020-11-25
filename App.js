@@ -21,10 +21,11 @@ class App extends Component {
     this.para = null;
     this.socket = null;
     this.state = {
-      cameraOccupy: 1, // 0 for preview, 1 for taking pictures.
+      cameraOccupy: 0, // 0 for preview, 1 for taking pictures.
       takePhoto: false,
-      cameratype: RNCamera.Constants.Type.front,
+      cameratype: RNCamera.Constants.Type.back,
       flash: RNCamera.Constants.FlashMode.on,
+      exposure: -1,
     };
   }
 
@@ -34,22 +35,36 @@ class App extends Component {
 
     this.socket.on('receive-setting', (data) => {
       console.log(data);
+      if (data["flash"] == true) {
+        this.setState({flash: RNCamera.Constants.FlashMode.on});
+      }
+      else {
+        this.setState({flash: RNCamera.Constants.FlashMode.off});
+      }
+      if (data["isFront"] == true) {
+        this.setState({cameratype: RNCamera.Constants.Type.front});
+      }
+      else {
+        this.setState({cameratype: RNCamera.Constants.Type.back});
+      }
+      this.setState({exposure: data["expoTime"]});
     });
+
 
     this.socket.on('take-photo', () => {
       console.log('Take a Photo');
       this.switchTakePhoto(true);
     });
-    
+
     this.socket.on('on-connect', (data) => {
       this.switchOccupy(0);
     });
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     console.log("rerendering app.js");
   }
-  
+
 
   switchOccupy = (state) => {
     console.log('switch occupy', this.state.cameraOccupy);
@@ -58,12 +73,12 @@ class App extends Component {
   switchTakePhoto = (state) => {
     console.log('switch takePhoto', this.state.takePhoto);
     this.setState({takePhoto: state});
-    
+
   };
 
   render() {
     // To use ios app, it should connect to the ip addr of computer
-    this.socket = io('http://172.16.3.34:3000');
+    this.socket = io('http://172.18.143.250:3000');
     if (this.state.cameraOccupy == 0) {
       return (
         <View style={styles.container}>
@@ -81,7 +96,8 @@ class App extends Component {
               takePhoto={this.state.takePhoto}
               cameratype={this.state.cameratype}
               flash={this.state.flash}
-              switchOccupy={this.switchOccupy} 
+              exposure={this.state.exposure}
+              switchOccupy={this.switchOccupy}
               switchTakePhoto={this.switchTakePhoto}
           />
         </View>
