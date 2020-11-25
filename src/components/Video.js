@@ -137,8 +137,11 @@ class Video extends React.Component {
 
   releaseStream() {
     this.setState({connected: false});
-    this.localStream.getTracks().forEach(track => track.stop());
-    this.localStream = null;
+    if (this.localStream === null) {
+      this.localStream.getTracks().forEach(track => track.stop());
+      this.localStream = null;
+    }
+    this.props.setCameraOccupy(1);
     console.log('Stream is released')
   }
 

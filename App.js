@@ -8,8 +8,11 @@ import io from 'socket.io-client';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.para = null;
     this.socket = null;
+    this.state = {
+      takePhoto: false,
+      cameraOccupy: 0
+    }
   }
 
   componentDidMount() {
@@ -25,12 +28,25 @@ class App extends Component {
     })
   }
 
+  setTakePhoto = (state) => {
+    this.setState({
+      takePhoto: state
+    })
+  }
+
+  setCameraOccupy = (state) => {
+    this.setState({
+      cameraOccupy: state
+    })
+  }
+
   render() {
     // To use ios app, it should connect to the ip addr of computer
     this.socket = io('http://172.18.143.250:3000');
+    console.log(`is occupy: ${this.state.cameraOccupy}`)
     return (
       <View>
-        <Video isFront={false} socket={this.socket}/>
+        <Video isFront={false} socket={this.socket} setCameraOccupy={this.setCameraOccupy}/>
       </View>
     );
   }
