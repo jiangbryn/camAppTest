@@ -13,6 +13,29 @@ import {
 // import CameraRoll, {saveToCameraRoll} from '@react-native-community/cameraroll';
 
 class MyCamera extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    console.log("rerendering camera.js");
+    if (this.props.takePhoto === true) {
+      console.log("update taking picutre.");
+      // this.takePicture();
+      // this.props.switchTakePhoto(false);
+    }
+    else {
+      console.log("not updating taking picture");
+    }
+    this.takePicture.bind(this)();
+  }
+  takePicture = async () => {
+    if (this.camera && !this.props.takePhoto) {
+      const options = {quality: 0.5, base64: true};
+      const data = await this.camera.takePictureAsync(options);
+      console.log('taking a picture', this.props.cameratype);
+    }
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -21,14 +44,14 @@ class MyCamera extends React.Component {
             this.camera = ref;
           }}
           style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
+          type={this.props.cameratype}
+          flashMode={this.props.flash}
         />
         <View>
           <Grid style={styles.bottomToolbar}>
             <Row>
               <Col size={2}>
-                <Button title="switch" onPress={this.props.switchOccupy} />
+                <Button title="switch" onPress={() => this.props.switchOccupy(0)} />
               </Col>
               <Col size={2}>
                 <TouchableOpacity>
@@ -45,13 +68,7 @@ class MyCamera extends React.Component {
       </View>
     );
   }
-  takePicture = async () => {
-    if (this.camera) {
-      const options = {quality: 0.5, base64: true};
-      const data = await this.camera.takePictureAsync(options);
-      console.log('taking a picture');
-    }
-  };
+  
 }
 
 const {width: winWidth, height: winHeight} = Dimensions.get('window');

@@ -21,71 +21,83 @@ const pc_config = {
 };
 
 class Video extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      initiator: false,
-      connecting: false,
-      waiting: true,
-      connected: false,
-    };
+      // initiator: false,
+      // connecting: false,
+      // waiting: true,
+      connected: false
+    }
     this.localStream = null;
-
     this.isFront = true;
     this.socket = this.props.socket;
     this.pc = null;
     this.candidates = {};
+    this.initiator = false;
   }
 
   componentDidMount() {
-    this.socket.on('init', () => {
-      this.setState({initiator: true});
-    });
-
-    this.socket.on('takePhoto', () => {
-      console.log('Take a Photo');
-      this.switchOccupy();
-    });
-
-    this.socket.on('close', () => {
-      this.releaseStream();
-    });
-
-    this.socket.on('reconnect', () => {
+    // this.socket.on('take-photo', () => {
+    //   console.log('Take a Photo');
+    //   this.props.switchOccupy();
+    // });
+    this.socket.on('app-to-connect', () => {
       this.setupPC();
+      this.socket.emit('on-connect');
+    })
+
+    this.socket.on('on-connect', (data) => {
+      this.initiator = data.initiator;
+      this.setState({connected: true});
+      console.log(`on-connect: is the ${data.initiator ? 'caller' : 'callee'}`);
+      console.log("switch to 0");
+      this.props.switchOccupy(0);
     });
 
-    if (this.pc === null) {
-      this.setupPC();
-    }
+    this.socket.on('established', () => {
+      console.log('established');
+      if (this.initiator) {
+        this.createOffer();
+      }
+      
+    })
 
-    this.socket.on('offerOrAnswer', (sdp) => {
+    this.socket.on('offer-or-answer', (sdp) => {
+      // if (!this.state.connected) return;
       // set sdp as remote description
-      if (sdp.type === 'offer' && this.state.initiator) {
-        return;
-      }
-      if (sdp.type === 'answer' && !this.state.initiator) {
-        return;
-      }
-      this.pc.setRemoteDescription(new RTCSessionDescription(sdp));
-      this.createAnswer();
-    });
+      console.log(`received an ${sdp.type}`);
+      this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
+        .then(() => {
+          if (sdp.type === 'offer') {
+            this.createAnswer();
+          }
+        })
+        .catch((e) => console.log(e));
+      // console.log(this.pc.currentRemoteDescription);
+    })
 
     this.socket.on('candidate', (candidate) => {
       // console.log('From Peer... ', JSON.stringify(candidate))
-      this.pc.addIceCandidate(new RTCIceCandidate(candidate));
+      this.pc.addIceCandidate(new RTCIceCandidate(candidate))
+        .catch((e) => console.log(e))
+    })
+
+    this.socket.on('close', () => {
+      console.log('closed')
+      this.props.switchOccupy(1);
     });
   }
 
   setupPC() {
-    const roomId = this.props.roomId;
     this.isFront = this.props.isFront;
     this.pc = new RTCPeerConnection(pc_config);
 
     // triggered when there is a change in connection state
     this.pc.oniceconnectionstatechange = (e) => {
-      console.log(e);
-      if (this.pc.connectionState === 'disconnected') {
+      if (this.pc.iceConnectionState === 'disconnected') {
+        this.setState({ connected: false });
         this.releaseStream();
       }
     };
@@ -93,7 +105,6 @@ class Video extends React.Component {
     // triggered when a new candidate is returned
     this.pc.onicecandidate = (e) => {
       // send the candidates to the remote peer
-      // see addCandidate below to be triggered on the remote peer
       if (e.candidate) {
         // console.log(JSON.stringify(e.candidate))
         this.sendToPeer('candidate', e.candidate);
@@ -102,11 +113,10 @@ class Video extends React.Component {
 
     // called when getUserMedia() successfully returns
     const success = (stream) => {
-      console.log('local stream: ' + stream.toURL());
-      this.socket.emit('join', {roomId: roomId});
-      this.localStream = stream;
-      this.pc.addStream(stream);
-    };
+      console.log('local stream: ' + stream.toURL())
+      this.localStream = stream
+      this.pc.addStream(stream)
+    }
 
     // called when getUserMedia() fails
     const failure = (e) => {
@@ -136,22 +146,16 @@ class Video extends React.Component {
       };
       mediaDevices.getUserMedia(constraints).then(success).catch(failure);
     });
-
-    this.socket.on('ready', () => {
-      this.setState({connecting: true, waiting: false});
-      console.log('Ready');
-      if (this.state.initiator === true) {
-        console.log('Create offer');
-        this.createOffer();
-      }
-      this.setState({connecting: false});
-    });
   }
 
   releaseStream() {
-    this.localStream.getTracks().forEach((track) => track.stop());
-    this.localStream = null;
-    this.setState({waiting: true});
+    this.setState({connected: false});
+    if (this.localStream != null) {
+      this.localStream.getTracks().forEach(track => track.stop());
+      this.localStream = null;
+    }
+    
+    console.log('Stream is released')
   }
 
   sendToPeer(messageType, data) {
@@ -159,48 +163,38 @@ class Video extends React.Component {
   }
 
   createOffer() {
-    console.log('Offer');
-
+    console.log('Create offer: initiator is ' + this.initiator)
     // initiates the creation of SDP
-
-    this.pc
-      .createOffer({offerToReceiveVideo: 1})
-      .then((sdp) => {
+    this.pc.createOffer({ offerToReceiveVideo: 1 })
+      .then(sdp => {
         // console.log(JSON.stringify(sdp))
         // set offer sdp as local description
-        this.pc.setLocalDescription(sdp);
-        this.sendToPeer('offerOrAnswer', sdp);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+        this.pc.setLocalDescription(sdp)
+        this.sendToPeer('offer-or-answer', sdp)
+      }).catch((e) => console.log(e))
   }
 
   // creates an SDP answer to an offer received from remote peer
   createAnswer() {
-    console.log('Answer');
-    this.pc
-      .createAnswer({offerToReceiveVideo: 1})
-      .then((sdp) => {
+    console.log('Create answer: initiator is ' + this.initiator)
+    this.pc.createAnswer({ offerToReceiveVideo: 1 })
+      .then(sdp => {
         // console.log(JSON.stringify(sdp))
         // set answer sdp as local description
-        this.pc.setLocalDescription(sdp);
-        this.sendToPeer('offerOrAnswer', sdp);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+        this.pc.setLocalDescription(sdp).catch(e => console.log(e))
+        this.sendToPeer('offer-or-answer', sdp)
+      }).catch((e) => console.log(e))
   }
 
   clickSnap() {
     console.log('click snap');
-    this.props.switchOccupy();
+    this.props.switchOccupy(1);
   }
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View>
-          <Button title={'Snap'} onPress={this.clickSnap.bind(this)} />
+          <Button title={'Switch'} onPress={this.clickSnap.bind(this)} />
         </View>
         {/*// /* <View className="video-wrapper">**/}
         <View>
