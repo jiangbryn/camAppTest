@@ -149,6 +149,7 @@ class Video extends React.Component {
   }
 
   releaseStream() {
+<<<<<<< HEAD
     this.setState({connected: false});
     if (this.localStream != null) {
       this.localStream.getTracks().forEach(track => track.stop());
@@ -156,6 +157,11 @@ class Video extends React.Component {
     }
     
     console.log('Stream is released')
+=======
+    this.localStream.getTracks().forEach((track) => track.stop());
+    this.localStream = null;
+    this.setState({waiting: true, initiator: false});
+>>>>>>> cameraset
   }
 
   sendToPeer(messageType, data) {
