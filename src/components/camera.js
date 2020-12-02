@@ -38,7 +38,7 @@ class MyCamera extends React.Component {
     const data = await this.camera.takePictureAsync(options);
     // CameraRoll.saveToCameraRoll(data.uri, 'photo');
     console.log('taking a picture');
-    console.log(data.base64);
+    this.props.socket.emit('upload', data);
     // }
   };
   render() {

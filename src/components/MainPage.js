@@ -80,6 +80,7 @@ class MainPage extends Component {
         {
           this.state.cameraOccupy === 0 ? null :
             <MyCamera
+              socket={this.socket}
               takePhoto={this.state.takePhoto}
               cameratype={this.state.cameratype}
               flash={this.state.flash}
