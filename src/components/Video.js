@@ -1,6 +1,5 @@
 import React from 'react';
-import io from 'socket.io-client';
-import {Button, Text, View} from 'react-native';
+import {View} from 'react-native';
 import {
   RTCPeerConnection,
   RTCIceCandidate,
@@ -25,9 +24,6 @@ class Video extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // initiator: false,
-      // connecting: false,
-      // waiting: true,
       connected: false
     }
     this.localStream = null;
@@ -39,21 +35,14 @@ class Video extends React.Component {
   }
 
   componentDidMount() {
-    // this.socket.on('take-photo', () => {
-    //   console.log('Take a Photo');
-    //   this.props.switchOccupy();
-    // });
-    this.socket.on('app-to-connect', () => {
+    this.socket.on('app-to-connect', (data) => {
       this.setupPC();
-      this.socket.emit('on-connect');
-    })
+    });
 
     this.socket.on('on-connect', (data) => {
       this.initiator = data.initiator;
       this.setState({connected: true});
       console.log(`on-connect: is the ${data.initiator ? 'caller' : 'callee'}`);
-      console.log("switch to 0");
-      this.props.switchOccupy(0);
     });
 
     this.socket.on('established', () => {
@@ -61,7 +50,6 @@ class Video extends React.Component {
       if (this.initiator) {
         this.createOffer();
       }
-      
     })
 
     this.socket.on('offer-or-answer', (sdp) => {
@@ -83,11 +71,6 @@ class Video extends React.Component {
       this.pc.addIceCandidate(new RTCIceCandidate(candidate))
         .catch((e) => console.log(e))
     })
-
-    this.socket.on('close', () => {
-      console.log('closed')
-      this.props.switchOccupy(1);
-    });
   }
 
   setupPC() {
@@ -111,18 +94,6 @@ class Video extends React.Component {
       }
     };
 
-    // called when getUserMedia() successfully returns
-    const success = (stream) => {
-      console.log('local stream: ' + stream.toURL())
-      this.localStream = stream
-      this.pc.addStream(stream)
-    }
-
-    // called when getUserMedia() fails
-    const failure = (e) => {
-      console.log('getUserMedia Error: ', e);
-    };
-
     mediaDevices.enumerateDevices().then((sourceInfos) => {
       let videoSourceId;
       for (let i = 0; i < sourceInfos.length; i++) {
@@ -136,6 +107,13 @@ class Video extends React.Component {
         }
       }
 
+      // called when getUserMedia() successfully returns
+      const success = (stream) => {
+        console.log('local stream: ' + stream.toURL())
+        this.localStream = stream
+        this.pc.addStream(stream)
+      }
+
       const constraints = {
         video: {
           width: {min: 160, ideal: 640, max: 1280},
@@ -144,7 +122,14 @@ class Video extends React.Component {
           optional: videoSourceId ? [{sourceId: videoSourceId}] : [],
         },
       };
-      mediaDevices.getUserMedia(constraints).then(success).catch(failure);
+      mediaDevices.getUserMedia(constraints)
+        .then(success)
+        .then((res) => {
+          this.socket.emit('on-connect')
+        })
+        .catch((e) => {
+          console.log('getUserMedia Error: ', e);
+        });
     });
   }
 
@@ -154,7 +139,7 @@ class Video extends React.Component {
       this.localStream.getTracks().forEach(track => track.stop());
       this.localStream = null;
     }
-    
+
     console.log('Stream is released')
 
   }
@@ -187,17 +172,9 @@ class Video extends React.Component {
       }).catch((e) => console.log(e))
   }
 
-  clickSnap() {
-    console.log('click snap');
-    this.props.switchOccupy(1);
-  }
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <View>
-          <Button title={'Switch'} onPress={this.clickSnap.bind(this)} />
-        </View>
-        {/*// /* <View className="video-wrapper">**/}
         <View>
           <RTCView streamURL={this.localStream && this.localStream.toURL()} />
         </View>
