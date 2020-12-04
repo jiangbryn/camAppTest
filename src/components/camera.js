@@ -25,11 +25,14 @@ class MyCamera extends React.Component {
       modalVisible: false,
       indexState: null,
       selectedURI: null,
+      showing_image: false,
     };
   }
 
   componentDidUpdate(prevProps, prevState) {
     console.log('rerendering camera.js');
+    console.log(this.state.showing_image);
+    console.log(this.state.selectedURI);
     if (this.props.takePhoto === true) {
       console.log('update taking picutre.');
       // this.takePicture();
@@ -76,6 +79,10 @@ class MyCamera extends React.Component {
     }
   };
 
+  switch_imageshowing = (flag) => {
+    this.setState({showing_image: flag});
+  };
+
   render() {
     // return (
     //   <View>
@@ -105,7 +112,21 @@ class MyCamera extends React.Component {
     //   );
 
 
-
+    if (this.state.showing_image) {
+  return (
+      <View>
+        <Image
+            style={{
+              width: winWidth,
+              height: winHeight,
+              resizeMode: 'stretch',
+            }}
+            source={{uri: this.state.selectedURI}}
+        />
+      </View>
+  )
+    }
+    else {
     return (
         <View style={styles.container}>
                <RNCamera
@@ -176,7 +197,7 @@ class MyCamera extends React.Component {
                         onPress={() => {
                           this.indexSelection(i);
                           console.log(p.node.image.uri);
-                          this.setState({SelectedURI: p.node.image.uri});
+                          this.setState({selectedURI: p.node.image.uri});
                         }}>
                         <Image
                             key={i}
@@ -195,7 +216,7 @@ class MyCamera extends React.Component {
                       justifyContent: 'center',
                     }}>
                     <TouchableOpacity
-                      onPress={this.props.switchOccupy}
+                      onPress={()=>{this.switch_imageshowing(true);}}
                       style={{
                         flex: 0,
                         backgroundColor: '#fff',
@@ -213,7 +234,7 @@ class MyCamera extends React.Component {
             </Modal>
           </View>
     )
-
+    }
 
 
 
@@ -298,7 +319,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderWidth: 2,
     borderRadius: 60,
-    borderColor: '#FFFFFF',
+    borderColor: '#ffffff',
   },
   captureBtnActive: {
     width: 80,
