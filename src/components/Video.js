@@ -174,7 +174,7 @@ class Video extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{display: 'none', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View>
           <RTCView streamURL={this.localStream && this.localStream.toURL()} />
         </View>

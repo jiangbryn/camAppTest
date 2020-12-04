@@ -78,6 +78,8 @@ target 'camAppTest' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'react-native-webrtc', :path => '../node_modules/react-native-webrtc'
 
+  pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
+
   target 'camAppTestTests' do
     inherit! :complete
     # Pods for testing

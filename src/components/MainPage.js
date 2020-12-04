@@ -12,7 +12,7 @@ class MainPage extends Component {
     this.firstRender = true;
     this.socket = this.props.socket;
     this.state = {
-      cameraOccupy: 0, // 0 for preview, 1 for taking pictures.
+      cameraOccupy: 1, // 0 for preview, 1 for taking pictures.
       takePhoto: false,
       cameratype: RNCamera.Constants.Type.back,
       flash: RNCamera.Constants.FlashMode.on,
