@@ -20,14 +20,13 @@ const pc_config = {
 };
 
 class Video extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      connected: false
-    }
+      connected: false,
+    };
     this.localStream = null;
-    this.isFront = true;
+    this.isFront = this.props.isFront;
     this.socket = this.props.socket;
     this.pc = null;
     this.candidates = {};
@@ -100,7 +99,7 @@ class Video extends React.Component {
         const sourceInfo = sourceInfos[i];
         if (
           sourceInfo.kind === 'videoinput' &&
-          sourceInfo.facing === (this.isFront ? 'front' : 'environment')
+          sourceInfo.facing === (this.props.isFront ? 'front' : 'environment')
         ) {
           videoSourceId = sourceInfo.deviceId;
           console.log('source info: ' + JSON.stringify(sourceInfo));
@@ -109,20 +108,21 @@ class Video extends React.Component {
 
       // called when getUserMedia() successfully returns
       const success = (stream) => {
-        console.log('local stream: ' + stream.toURL())
-        this.localStream = stream
-        this.pc.addStream(stream)
+        console.log('local stream: ' + stream.toURL());
+        this.localStream = stream;
+        this.pc.addStream(stream);
       }
 
       const constraints = {
         video: {
           width: {min: 160, ideal: 640, max: 1280},
           height: {min: 120, ideal: 360, max: 720},
-          facingMode: this.isFront ? 'user' : 'environment',
+          facingMode: this.props.isFront ? 'user' : 'environment',
           optional: videoSourceId ? [{sourceId: videoSourceId}] : [],
         },
       };
-      mediaDevices.getUserMedia(constraints)
+      mediaDevices
+        .getUserMedia(constraints)
         .then(success)
         .then((res) => {
           this.socket.emit('on-connect')

@@ -12,7 +12,7 @@ import {
   TouchableHighlight,
   Image,
   ScrollView,
-    Modal,
+  Modal,
 } from 'react-native';
 
 import CameraRoll, {saveToCameraRoll} from '@react-native-community/cameraroll';
@@ -42,7 +42,6 @@ class MyCamera extends React.Component {
     } else {
       console.log('not updating taking picture');
     }
-
   }
   takePicture = async () => {
     // if (this.camera && !this.props.takePhoto) {
@@ -59,13 +58,13 @@ class MyCamera extends React.Component {
       first: 5,
       assetType: 'Photos',
     })
-        .then((r) => {
-          this.setState({photos_content: r.edges});
-          console.log(r.edges);
-        })
-        .catch((err) => {
-          console.log('fail to get camera roll');
-        });
+      .then((r) => {
+        this.setState({photos_content: r.edges});
+        console.log(r.edges);
+      })
+      .catch((err) => {
+        console.log('fail to get camera roll');
+      });
   };
   toggleModal = () => {
     this.setState({modalVisible: !this.state.modalVisible});
@@ -84,101 +83,50 @@ class MyCamera extends React.Component {
   };
 
   render() {
-    // return (
-    //   <View>
-    //     <Button
-    //       // style={{
-    //       //   justifyContent: 'center',
-    //       // }}
-    //       title="Load Images"
-    //       onPress={this._getCameraRoll}
-    //     />
-    //     <ScrollView>
-    //       {this.state.photos_content.map((p, i) => {
-    //         console.log('uri: ', p.node.image.uri);
-    //         return (
-    //           <Image
-    //             key={i}
-    //             style={{
-    //               width: 300,
-    //               height: 300,
-    //             }}
-    //             source={{uri: p.node.image.uri}}
-    //           />
-    //         );
-    //       })}
-    //     </ScrollView>
-    //   </View>
-    //   );
-
-
-    if (this.state.showing_image) {
-  return (
-      <View>
-        <Image
-            style={{
-              width: winWidth,
-              height: winHeight,
-              resizeMode: 'stretch',
-            }}
-            source={{uri: this.state.selectedURI}}
-        />
-      </View>
-  )
-    }
-    else {
     return (
-        <View style={styles.container}>
-               <RNCamera
-                ref={(ref) => {
-                  this.camera = ref;
+      <View style={styles.container}>
+        <RNCamera
+          ref={(ref) => {
+            this.camera = ref;
+          }}
+          style={styles.preview}
+          type={
+            this.props.isFront
+              ? RNCamera.Constants.Type.front
+              : RNCamera.Constants.Type.back
+          }
+          flashMode={
+            this.props.flash
+              ? RNCamera.Constants.FlashMode.on
+              : RNCamera.Constants.FlashMode.off
+          }
+          exposure={this.props.exposure}
+        />
+        {this.state.showing_image ? (
+          <View>
+            <TouchableHighlight
+              onLongPress={() => {
+                this.setState({showing_image: false});
+              }}>
+              <Image
+                style={{
+                  width: winWidth,
+                  height: winHeight,
+                  resizeMode: 'stretch',
                 }}
-                style={styles.preview}
-                type={
-                  this.props.isFront
-                    ? RNCamera.Constants.Type.front
-                    : RNCamera.Constants.Type.back
-                }
-                flashMode={
-                  this.props.flash
-                    ? RNCamera.Constants.FlashMode.on
-                    : RNCamera.Constants.FlashMode.off
-                }
-                exposure={this.props.exposure}
+                source={{uri: this.state.selectedURI}}
               />
-              {/*</View>*/}
-              <Button
-                title="View CameraRoll"
-                onPress={() => {
-                  this.toggleModal();
-                  this._getCameraRoll();
-                }}
-              />
-              {/*<View>*/}
-              {/*  <Grid style={styles.bottomToolbar}>*/}
-              {/*    <Row>*/}
-              {/*      <Col size={2}>*/}
-              {/*        <Button*/}
-              {/*          title="view camera roll"*/}
-              {/*          onPress={() => {*/}
-              {/*            this.toggleModal();*/}
-              {/*            this.getCameraRoll();*/}
-              {/*          }}*/}
-              {/*        />*/}
-              {/*      </Col>*/}
-              {/*      <Col size={2}>*/}
-              {/*        <TouchableOpacity>*/}
-              {/*          <Button*/}
-              {/*            style={styles.captureBtn}*/}
-              {/*            title={'Snap'}*/}
-              {/*            onPress={this.takePicture.bind(this)}*/}
-              {/*          />*/}
-              {/*        </TouchableOpacity>*/}
-              {/*      </Col>*/}
-              {/*    </Row>*/}
-              {/*  </Grid>*/}
-              {/*</View>*/}
-
+            </TouchableHighlight>
+          </View>
+        ) : (
+          <View>
+            <Button
+              title="View CameraRoll"
+              onPress={() => {
+                this.toggleModal();
+                this._getCameraRoll();
+              }}
+            />
             <Modal
               animationType={'slide'}
               transparent={false}
@@ -200,11 +148,11 @@ class MyCamera extends React.Component {
                           this.setState({selectedURI: p.node.image.uri});
                         }}>
                         <Image
-                            key={i}
+                          key={i}
                           style={styles.imageView}
                           source={{uri: p.node.image.uri}}
                         />
-                       </TouchableHighlight>
+                      </TouchableHighlight>
                     );
                   })}
                 </ScrollView>
@@ -216,7 +164,9 @@ class MyCamera extends React.Component {
                       justifyContent: 'center',
                     }}>
                     <TouchableOpacity
-                      onPress={()=>{this.switch_imageshowing(true);}}
+                      onPress={() => {
+                        this.switch_imageshowing(true);
+                      }}
                       style={{
                         flex: 0,
                         backgroundColor: '#fff',
@@ -233,47 +183,9 @@ class MyCamera extends React.Component {
               </View>
             </Modal>
           </View>
-    )
-    }
-
-
-
-
-
-    // return (
-    //   <View style={styles.container}>
-    //     <RNCamera
-    //       ref={(ref) => {
-    //         this.camera = ref;
-    //       }}
-    //       style={styles.preview}
-    //       type={this.props.cameratype}
-    //       flashMode={this.props.flash}
-    //       exposure={this.props.exposure}
-    //     />
-    //     <View>
-    //       <Grid style={styles.bottomToolbar}>
-    //         <Row>
-    //           <Col size={2}>
-    //             <Button
-    //               title="switch"
-    //               onPress={() => this.props.switchOccupy(0)}
-    //             />
-    //           </Col>
-    //           <Col size={2}>
-    //             <TouchableOpacity>
-    //               <Button
-    //                 style={styles.captureBtn}
-    //                 title={'Snap'}
-    //                 onPress={this.takePicture.bind(this)}
-    //               />
-    //             </TouchableOpacity>
-    //           </Col>
-    //         </Row>
-    //       </Grid>
-    //     </View>
-    //   </View>
-    // );
+        )}
+      </View>
+    );
   }
 }
 
@@ -334,7 +246,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   imageView: {
-    width: winWidth ,
+    width: winWidth,
     height: winHeight / 2,
     flex: 1,
     flexWrap: 'wrap',
