@@ -49,13 +49,14 @@ class Video extends React.Component {
       if (this.initiator) {
         this.createOffer();
       }
-    })
+    });
 
     this.socket.on('offer-or-answer', (sdp) => {
       // if (!this.state.connected) return;
       // set sdp as remote description
       console.log(`received an ${sdp.type}`);
-      this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
+      this.pc
+        .setRemoteDescription(new RTCSessionDescription(sdp))
         .then(() => {
           if (sdp.type === 'offer') {
             this.createAnswer();
@@ -63,13 +64,14 @@ class Video extends React.Component {
         })
         .catch((e) => console.log(e));
       // console.log(this.pc.currentRemoteDescription);
-    })
+    });
 
     this.socket.on('candidate', (candidate) => {
       // console.log('From Peer... ', JSON.stringify(candidate))
-      this.pc.addIceCandidate(new RTCIceCandidate(candidate))
-        .catch((e) => console.log(e))
-    })
+      this.pc
+        .addIceCandidate(new RTCIceCandidate(candidate))
+        .catch((e) => console.log(e));
+    });
   }
 
   setupPC() {
@@ -79,7 +81,7 @@ class Video extends React.Component {
     // triggered when there is a change in connection state
     this.pc.oniceconnectionstatechange = (e) => {
       if (this.pc.iceConnectionState === 'disconnected') {
-        this.setState({ connected: false });
+        this.setState({connected: false});
         this.releaseStream();
       }
     };
@@ -111,7 +113,7 @@ class Video extends React.Component {
         console.log('local stream: ' + stream.toURL());
         this.localStream = stream;
         this.pc.addStream(stream);
-      }
+      };
 
       const constraints = {
         video: {
@@ -125,7 +127,7 @@ class Video extends React.Component {
         .getUserMedia(constraints)
         .then(success)
         .then((res) => {
-          this.socket.emit('on-connect')
+          this.socket.emit('on-connect');
         })
         .catch((e) => {
           console.log('getUserMedia Error: ', e);
@@ -136,12 +138,11 @@ class Video extends React.Component {
   releaseStream() {
     this.setState({connected: false});
     if (this.localStream != null) {
-      this.localStream.getTracks().forEach(track => track.stop());
+      this.localStream.getTracks().forEach((track) => track.stop());
       this.localStream = null;
     }
 
-    console.log('Stream is released')
-
+    console.log('Stream is released');
   }
 
   sendToPeer(messageType, data) {
@@ -149,32 +150,37 @@ class Video extends React.Component {
   }
 
   createOffer() {
-    console.log('Create offer: initiator is ' + this.initiator)
+    console.log('Create offer: initiator is ' + this.initiator);
     // initiates the creation of SDP
-    this.pc.createOffer({ offerToReceiveVideo: 1 })
-      .then(sdp => {
+    this.pc
+      .createOffer({offerToReceiveVideo: 1})
+      .then((sdp) => {
         // console.log(JSON.stringify(sdp))
         // set offer sdp as local description
-        this.pc.setLocalDescription(sdp)
-        this.sendToPeer('offer-or-answer', sdp)
-      }).catch((e) => console.log(e))
+        this.pc.setLocalDescription(sdp);
+        this.sendToPeer('offer-or-answer', sdp);
+      })
+      .catch((e) => console.log(e));
   }
 
   // creates an SDP answer to an offer received from remote peer
   createAnswer() {
-    console.log('Create answer: initiator is ' + this.initiator)
-    this.pc.createAnswer({ offerToReceiveVideo: 1 })
-      .then(sdp => {
+    console.log('Create answer: initiator is ' + this.initiator);
+    this.pc
+      .createAnswer({offerToReceiveVideo: 1})
+      .then((sdp) => {
         // console.log(JSON.stringify(sdp))
         // set answer sdp as local description
-        this.pc.setLocalDescription(sdp).catch(e => console.log(e))
-        this.sendToPeer('offer-or-answer', sdp)
-      }).catch((e) => console.log(e))
+        this.pc.setLocalDescription(sdp).catch((e) => console.log(e));
+        this.sendToPeer('offer-or-answer', sdp);
+      })
+      .catch((e) => console.log(e));
   }
 
   render() {
     return (
-      <View style={{display: 'none', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View>
+        {/*style={{display: 'none', flex: 1, alignItems: 'center', justifyContent: 'center'}}>*/}
         <View>
           <RTCView streamURL={this.localStream && this.localStream.toURL()} />
         </View>

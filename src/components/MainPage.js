@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Video from './Video';
 import MyCamera from './camera';
-import {RNCamera} from 'react-native-camera';
+import Pattern from './Pattern';
 
 class MainPage extends Component {
   constructor(props) {
@@ -60,7 +60,11 @@ class MainPage extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Pattern />
         <Video
+          style={{
+            display: 'none',
+          }}
           socket={this.socket}
           switchOccupy={this.switchOccupy}
           firstRender={this.firstRender}
@@ -68,6 +72,9 @@ class MainPage extends Component {
         />
         {this.state.cameraOccupy === 0 ? null : (
           <MyCamera
+            style={{
+              display: 'none',
+            }}
             socket={this.socket}
             takePhoto={this.state.takePhoto}
             isFront={this.state.isFront}
