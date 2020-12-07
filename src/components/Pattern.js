@@ -29,7 +29,7 @@ class Pattern extends React.Component {
   }
 
   _getCameraRoll = () => {
-    console.log('get camera roll');
+    // console.log('get camera roll');
     CameraRoll.getPhotos({
       first: 5,
       assetType: 'Photos',

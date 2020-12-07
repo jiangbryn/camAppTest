@@ -30,17 +30,17 @@ class MyCamera extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('rerendering camera.js');
-    console.log(this.state.showing_image);
-    console.log(this.state.selectedURI);
+    // console.log('rerendering camera.js');
+    // console.log(this.state.showing_image);
+    // console.log(this.state.selectedURI);
     if (this.props.takePhoto === true) {
-      console.log('update taking picutre.');
+      // console.log('update taking picutre.');
       // this.takePicture();
       // this.props.switchTakePhoto(false);
       this.takePicture.bind(this)();
       this.props.switchTakePhoto(false);
     } else {
-      console.log('not updating taking picture');
+      // console.log('not updating taking picture');
     }
   }
   takePicture = async () => {
@@ -49,6 +49,7 @@ class MyCamera extends React.Component {
     const data = await this.camera.takePictureAsync(options);
     // CameraRoll.saveToCameraRoll(data.uri, 'photo');
     console.log('taking a picture');
+    console.log(data.uri);
     this.props.socket.emit('upload', data);
     // }
   };

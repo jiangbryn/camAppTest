@@ -48,7 +48,7 @@ class MainPage extends Component {
   }
 
   switchOccupy = (state) => {
-    console.log(`switch occupy to ${state === 0 ? 'preview' : 'take photo'}`);
+    // console.log(`switch occupy to ${state === 0 ? 'preview' : 'take photo'}`);
     this.setState({cameraOccupy: state});
   };
 

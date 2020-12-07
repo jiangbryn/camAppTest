@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   render() {
-    this.socket = io.connect('http://10.0.0.150:3000');
+    this.socket = io.connect('http://10.0.0.152:3000');
     return (
       <MainPage socket={this.socket}/>
     );
